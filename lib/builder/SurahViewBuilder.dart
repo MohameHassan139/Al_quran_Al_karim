@@ -337,12 +337,21 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:quran/library/Globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/Bookmark.dart';
 import '../Index.dart';
+import 'package:quran/library/Globals.dart';
 
+// class SurahViewBuilder extends StatefulWidget {
+//   SurahViewBuilder({Key? key, required this.pages}) : super(key: key);
+//   final int pages;
+
+//   @override
+//   _SurahViewBuilderState createState() => _SurahViewBuilderState();
+// }
 class SurahViewBuilder extends StatefulWidget {
   SurahViewBuilder({Key? key, required this.pages}) : super(key: key);
   final int pages;
@@ -352,7 +361,6 @@ class SurahViewBuilder extends StatefulWidget {
 }
 
 class _SurahViewBuilderState extends State<SurahViewBuilder> {
-  late PdfDocument _document;
   static const List<double> _doubleTapScales = <double>[1.0, 1.1];
   int currentPage = 0;
   late PdfController pageController;
@@ -361,13 +369,13 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
   int _selectedIndex = 0;
   late SharedPreferences prefs;
 
-  Future<PdfDocument> _getDocument() async {
-    if (_document != null) {
-      return _document;
+  Future<PdfDocument>? _getDocument() async {
+    if (document != null) {
+      return document!;
     }
-    if (true) {
-      _document = await PdfDocument.openAsset('assets/pdf/quran.pdf');
-      return _document;
+    if (document != null) {
+      // document = await PdfDocument.openAsset('assets/pdf/quran.pdf');
+      return document!;
     } else {
       throw Exception(
         'المعذرة لا يمكن طباعة المحتوى'
@@ -397,7 +405,7 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
         print("toSave: ${globals.bookmarkedPage}");
       });
       if (globals.bookmarkedPage != null) {
-        setBookmark(globals.bookmarkedPage!);
+        setBookmark(globals.bookmarkedPage + 1);
       }
     } else if (index == 2) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
@@ -406,7 +414,7 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
 
   PdfController _pageControllerBuilder() {
     return PdfController(
-      document: PdfDocument.openAsset('assets/pdf/quran.pdf'),
+      document: document!,
     );
   }
 
@@ -421,35 +429,38 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
     globals.lastViewedPage = prefs.getInt(globals.LAST_VIEWED_PAGE)!;
   }
 
-  Future<void> initDcument() async {
-    _document = await PdfDocument.openAsset('assets/pdf/quran.pdf');
-  }
-
   @override
-  void initState()  {
-    initDcument();
+  void initState() {
     super.initState();
     setState(() {
       globals.currentPage = widget.pages;
       pageController = _pageControllerBuilder();
+      pageController.initialPage = widget.pages + 1;
+      // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+     
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    pageController = _pageControllerBuilder();
+    // pageController = _pageControllerBuilder();
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: FutureBuilder<PdfDocument>(
         future: _getDocument(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SafeArea(
+             
               child: PdfView(
+              
+              
                 controller: pageController,
                 scrollDirection: Axis.horizontal,
                 onDocumentLoaded: (document) {
                   setState(() {
-                    _document = document;
+                    document = document;
                   });
                 },
                 onPageChanged: (page) {
@@ -464,9 +475,9 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
               ),
             );
           } else if (snapshot.hasError) {
+            print(snapshot.error.toString());
             return Center(
               child: Text(
-                '${snapshot.toString()} \n '
                 'المعذرة لا يمكن طباعة المحتوى'
                 'يرجي التحقق من أن جهازك يدعم نظام أندرويد بنسخته 5 على الأقل',
               ),
@@ -499,12 +510,7 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
     );
   }
 
-  // Future<bool> hasSupport() async {
-  //   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  //   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-  //   bool hasSupport = androidInfo.version.sdkInt >= 21;
-  //   return hasSupport;
-  // }
+  
 
   Future<bool> hasSupport() async {
     // Always assume support for emulators

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:quran/library/Globals.dart';
 import 'Index.dart';
 import 'SplashScreen.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDocument();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -18,6 +23,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        
         routes: {
           'index': (context) => Index(),
         },

@@ -1,5 +1,7 @@
 library quran.globals;
 
+import 'package:pdfx/pdfx.dart';
+
 /// -------------- @Global values
 /// changes when onChanged Callback
 int currentPage =0;
@@ -24,3 +26,8 @@ const DEFAULT_BRIGHTNESS_LEVEL = 0.5;
 const LAST_VIEWED_PAGE = 'lastViewedPage';
 const BRIGHTNESS_LEVEL = 'brightness_level';
 const BOOKMARKED_PAGE = 'bookmarkedPage';
+
+Future<PdfDocument>? document;
+Future<void> initDocument() async {
+  document = PdfDocument.openAsset('assets/pdf/quran.pdf');
+}

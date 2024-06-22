@@ -48,7 +48,7 @@ class _IndexState extends State<Index> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    SurahViewBuilder(pages: globals.lastViewedPage - 1)));
+                    SurahViewBuilder(pages: globals.lastViewedPage)));
       }
 
       /// Customize Screen Brightness

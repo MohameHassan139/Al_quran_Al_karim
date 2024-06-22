@@ -99,6 +99,7 @@ class _IndexState extends State<Index> {
                   builder:(context)=>SliderAlert());
             },
           ),*/
+
           title: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../entity/Surah.dart';
+import '../model/Surah.dart';
 import 'SurahViewBuilder.dart';
 
 class SurahListBuilder extends StatefulWidget {

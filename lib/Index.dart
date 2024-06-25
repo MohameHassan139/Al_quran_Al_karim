@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'dart:convert';
-import 'package:quran/library/Globals.dart' as globals;
+import 'package:quran_app/const/Globals.dart' as globals;
 
-import 'builder/SurahListBuilder.dart';
-import 'builder/SurahViewBuilder.dart';
-import 'entity/Surah.dart';
+import 'screens/SurahListBuilder.dart';
+import 'screens/SurahViewBuilder.dart';
+import 'model/Surah.dart';
 
 class Index extends StatefulWidget {
   @override

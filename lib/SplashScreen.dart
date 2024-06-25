@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:quran/library/Globals.dart' as globals;
+import 'package:quran_app/const/Globals.dart' as globals;
 
 import 'package:shared_preferences/shared_preferences.dart';
 

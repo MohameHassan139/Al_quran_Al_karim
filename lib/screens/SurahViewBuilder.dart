@@ -5,11 +5,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pdfx/pdfx.dart';
-import 'package:quran/library/Globals.dart' as globals;
+import 'package:quran_app/const/Globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/Bookmark.dart';
 import '../Index.dart';
-import 'package:quran/library/Globals.dart';
+import 'package:quran_app/const/Globals.dart';
 
 
 class SurahViewBuilder extends StatefulWidget {

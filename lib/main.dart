@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:quran/library/Globals.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quran_app/const/Globals.dart';
+import 'package:quran_app/test2.dart';
 import 'Index.dart';
 import 'SplashScreen.dart';
+import 'controller/cubit/verse_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +25,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<VerseCubit>(
+          create: (context) => VerseCubit(),
+        )
+      ],
+      child: MaterialApp(
         routes: {
           'index': (context) => Index(),
         },
@@ -32,6 +40,10 @@ class _MyAppState extends State<MyApp> {
           primarySwatch: Colors.green,
           primaryColor: Colors.green,
         ),
-        home: SplashScreen());
+        // home: SplashScreen(),
+        // home: QuranExample(),
+        home: AudioPlayerScreen(),
+      ),
+    );
   }
 }

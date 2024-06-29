@@ -29,6 +29,7 @@ dependencies:
   just_audio: ^0.9.38
   pdfx: ^2.6.0
   quran: ^1.3.0
+  rxdart: ^0.27.0
   shared_preferences: ^2.2.3
 
 # flutter_icons:

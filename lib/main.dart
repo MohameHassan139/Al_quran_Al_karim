@@ -25,25 +25,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<VerseCubit>(
-          create: (context) => VerseCubit(),
-        )
-      ],
-      child: MaterialApp(
-        routes: {
-          'index': (context) => Index(),
-        },
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          primaryColor: Colors.green,
-        ),
-        // home: SplashScreen(),
-        // home: QuranExample(),
-        home: AudioPlayerScreen(),
+    return MaterialApp(
+      routes: {
+        'index': (context) => Index(),
+      },
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        primaryColor: Colors.green,
       ),
+      // home: SplashScreen(),
+      // home: QuranExample(),
+      home: AudioPlayerScreen(),
     );
   }
 }

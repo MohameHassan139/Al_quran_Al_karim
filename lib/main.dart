@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/const/Globals.dart';
+import 'package:quran_app/test.dart';
 import 'package:quran_app/test2.dart';
 import 'Index.dart';
 import 'SplashScreen.dart';
 import 'controller/cubit/verse_cubit.dart';
+import 'widget/audio/custom_audio.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,13 +32,16 @@ class _MyAppState extends State<MyApp> {
         'index': (context) => Index(),
       },
       debugShowCheckedModeBanner: false,
+
       theme: ThemeData(
         primarySwatch: Colors.green,
         primaryColor: Colors.green,
       ),
       // home: SplashScreen(),
       // home: QuranExample(),
-      home: AudioPlayerScreen(),
+      // home: AudioPlayerScreen(),
+      // home: VesreScreen(),
+      home: VesreScreen(),
     );
   }
 }

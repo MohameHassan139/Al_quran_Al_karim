@@ -15,70 +15,70 @@ class VesreScreen extends StatefulWidget {
 }
 
 class _VesreScreenState extends State<VesreScreen> {
+  PageController? controller;
+  int surhNumber = 2;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Stack(
-          fit: StackFit.expand,
-
-          // alignment: Alignment.bottomCenter,
-          children: [
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 100.0),
-              child: SingleChildScrollView(
-                child: Wrap(
-                  children: [
-                    Text(
-                      "${quran.getVerse(2, 282)} ${quran.getVerseEndSymbol(arabicNumeral: true, 282)}",
-                      textDirection: TextDirection.rtl,
-                      style: GoogleFonts.amiriQuran().copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        height: 2,
-                      ),
-                    ),
-                    Text(
-                      "${quran.getVerse(2, 282)} ${quran.getVerseEndSymbol(arabicNumeral: true, 282)}",
-                      textDirection: TextDirection.rtl,
-                      style: GoogleFonts.amiriQuran().copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        height: 2,
-                      ),
-                    ),
-                    Text(
-                      "${quran.getVerse(2, 282)} ${quran.getVerseEndSymbol(arabicNumeral: true, 282)}",
-                      textDirection: TextDirection.rtl,
-                      style: GoogleFonts.amiriQuran().copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        height: 2,
-                      ),
-                    ),
-                  ],
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        centerTitle: true,
+        title: Text(
+          " ${quran.getSurahNameArabic(2)}",
+          textDirection: TextDirection.rtl,
+          style: GoogleFonts.amiriQuran().copyWith(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            height: 2,
+          ),
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: PageView.builder(
+            reverse: true,
+            itemCount: quran.getVerseCount(surhNumber),
+            itemBuilder: (context, index) => Stack(
+              fit: StackFit.expand,
+              alignment: Alignment.topCenter,
+              children: [
+                const SizedBox(
+                  height: 15,
                 ),
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              width: width,
-              child: Align(
-              
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 110.0),
+                  child: SingleChildScrollView(
+                    child: Center(
+                      child: Text(
+                        "${quran.getVerse(surhNumber, index + 1)} ${quran.getVerseEndSymbol(arabicNumeral: true, index + 1)}",
+                        textDirection: TextDirection.rtl,
+                          
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.amiriQuran().copyWith(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          height: 2,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 
-                alignment: Alignment.bottomCenter,
-                child: CustomAudio(
-                  url: quran.getAudioURLByVerse(2, 282),
-                ),
-              ),
-            )
-           
-          ],
+                Positioned(
+                  bottom: 0,
+                  width: width,
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: CustomAudio(
+                      url: quran.getAudioURLByVerse(surhNumber, index + 1),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

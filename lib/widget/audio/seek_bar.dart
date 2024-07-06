@@ -5,7 +5,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:quran_app/test.dart';
 
 import 'hidden_thumb_component_shape.dart';
 

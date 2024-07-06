@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:quran_app/const/Globals.dart';
 import '../model/Surah.dart';
+
+import 'package:quran_app/model/enum.dart';
 import 'SurahViewBuilder.dart';
+import 'verse_page.dart';
 
 class SurahListBuilder extends StatefulWidget {
   final List<Surah> surah;
+  
 
   SurahListBuilder({Key? key, required this.surah}) : super(key: key);
 
@@ -14,7 +19,7 @@ class SurahListBuilder extends StatefulWidget {
 class _SurahListBuilderState extends State<SurahListBuilder> {
   TextEditingController editingController = TextEditingController();
 
-   List<Surah>  surah=[];
+  List<Surah> surah = [];
 
   void initSurahListView() {
     if (surah.isNotEmpty) {
@@ -82,7 +87,7 @@ class _SurahListBuilderState extends State<SurahListBuilder> {
                 print(value);
               },
               controller: editingController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   labelText: "البحث عن سورة",
                   // hintText: "البحث",
                   prefixIcon: Icon(Icons.search),
@@ -106,12 +111,45 @@ class _SurahListBuilderState extends State<SurahListBuilder> {
                       height: 30),
                   trailing: Text("${surah[index].pageIndex}"),
                   onTap: () {
+                   
+
                     /// Push to Quran view ([int pages] represent surah page(reversed index))
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                    switch (typeView!) {
+                      case TypeView.read:
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) =>
-                                SurahViewBuilder(pages: surah[index].pages!)));
+                                SurahViewBuilder(pages: surah[index].pages!),
+                          ),
+                        );
+                        break;
+                      case TypeView.lisen:
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SurahViewBuilder(pages: surah[index].pages!),
+                          ),
+                        );
+                        break;
+                      case TypeView.saved:
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VesreScreen(
+                              surhindex: surah[index].index!,
+                            ),
+                          ),
+                        );
+                        break;
+                      default:
+                        // Handle unexpected enum values (optional)
+                        print('Warning: Unhandled TypeView: $typeView');
+                        // Consider throwing an exception or taking other appropriate actions
+                        break;
+                    }
+                 
                   }),
             ),
           ),

@@ -3,20 +3,22 @@
 // directory as this example in the GitHub repository.
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/widget/audio/custom_audio.dart';
 import 'package:quran/quran.dart' as quran;
 
 class VesreScreen extends StatefulWidget {
-  const VesreScreen({super.key});
-
+  VesreScreen({super.key, required this.surhindex});
+  String surhindex;
   @override
   State<VesreScreen> createState() => _VesreScreenState();
 }
 
 class _VesreScreenState extends State<VesreScreen> {
   PageController? controller;
-  int surhNumber = 2;
+  int get surhNumber => int.parse(widget.surhindex);
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -25,7 +27,7 @@ class _VesreScreenState extends State<VesreScreen> {
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
         title: Text(
-          " ${quran.getSurahNameArabic(2)}",
+          " ${quran.getSurahNameArabic(surhNumber)}",
           textDirection: TextDirection.rtl,
           style: GoogleFonts.amiriQuran().copyWith(
             fontSize: 24,
@@ -54,7 +56,6 @@ class _VesreScreenState extends State<VesreScreen> {
                       child: Text(
                         "${quran.getVerse(surhNumber, index + 1)} ${quran.getVerseEndSymbol(arabicNumeral: true, index + 1)}",
                         textDirection: TextDirection.rtl,
-                          
                         textAlign: TextAlign.center,
                         style: GoogleFonts.amiriQuran().copyWith(
                           fontSize: 20,
@@ -65,7 +66,6 @@ class _VesreScreenState extends State<VesreScreen> {
                     ),
                   ),
                 ),
-                
                 Positioned(
                   bottom: 0,
                   width: width,

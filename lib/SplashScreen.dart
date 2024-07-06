@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
     getBrightnessLevel();
     getLastViewedPage();
     Timer(Duration(seconds: 3),
-        () => Navigator.pushReplacementNamed(context, "index"));
+        () => Navigator.pushReplacementNamed(context, "select"));
     super.initState();
   }
 

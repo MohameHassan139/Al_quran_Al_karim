@@ -1,6 +1,9 @@
 library quran.globals;
 
 import 'package:pdfx/pdfx.dart';
+import 'package:quran_app/model/enum.dart';
+
+
 
 /// -------------- @Global values
 /// changes when onChanged Callback
@@ -31,3 +34,5 @@ Future<PdfDocument>? document;
 Future<void> initDocument() async {
   document = PdfDocument.openAsset('assets/pdf/quran.pdf');
 }
+
+TypeView? typeView;

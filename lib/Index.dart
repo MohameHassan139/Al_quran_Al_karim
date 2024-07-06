@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'dart:convert';
 import 'package:quran_app/const/Globals.dart' as globals;
+import 'package:quran_app/const/Globals.dart';
+import 'package:quran_app/model/enum.dart';
 
 import 'screens/SurahListBuilder.dart';
 import 'screens/SurahViewBuilder.dart';
@@ -133,7 +135,8 @@ class _IndexState extends State<Index> {
                 }),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: typeView == TypeView.read
+            ? BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.book),
@@ -152,7 +155,8 @@ class _IndexState extends State<Index> {
           selectedItemColor: Colors.grey[600],
           selectedFontSize: 12,
           onTap: (index) => _onItemTapped(index),
-        ),
+              )
+            : null,
       ),
     );
   }

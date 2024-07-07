@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quran_app/const/Globals.dart';
+import 'package:quran_app/screens/listen_page.dart';
 import '../model/Surah.dart';
 
 import 'package:quran_app/model/enum.dart';
@@ -134,7 +135,7 @@ class _SurahListBuilderState extends State<SurahListBuilder> {
                           ),
                         );
                         break;
-                      case TypeView.lisen:
+                      case TypeView.readpdf:
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -149,6 +150,16 @@ class _SurahListBuilderState extends State<SurahListBuilder> {
                           MaterialPageRoute(
                             builder: (context) => VesreScreen(
                               surhindex: surah[index].index!,
+                            ),
+                          ),
+                        );
+                        break;
+                      case TypeView.lisen:
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ListenPage(
+                              surhNumber: surah[index].index!,
                             ),
                           ),
                         );

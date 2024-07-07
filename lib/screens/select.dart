@@ -32,12 +32,12 @@ class _SelectPageState extends State<SelectPage> {
                 );
               },
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(16)),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'قراء',
                     style: TextStyle(color: Colors.white),
@@ -45,7 +45,7 @@ class _SelectPageState extends State<SelectPage> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             MaterialButton(
@@ -60,20 +60,20 @@ class _SelectPageState extends State<SelectPage> {
                 );
               },
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(16)),
-                child: Center(
-                  child: Text(
+                child: const Center(
+                  child: const Text(
                     'قراء',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             MaterialButton(
@@ -87,14 +87,41 @@ class _SelectPageState extends State<SelectPage> {
                 );
               },
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 width: double.infinity,
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(16)),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'حفظ',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            MaterialButton(
+              onPressed: () {
+                typeView = TypeView.lisen;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Index(),
+                  ),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(16)),
+                child: const Center(
+                  child: Text(
+                    'استمع',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),

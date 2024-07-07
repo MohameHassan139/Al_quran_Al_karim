@@ -4,6 +4,7 @@ import '../model/Surah.dart';
 
 import 'package:quran_app/model/enum.dart';
 import 'SurahViewBuilder.dart';
+import 'surh_page.dart';
 import 'verse_page.dart';
 
 class SurahListBuilder extends StatefulWidget {
@@ -115,12 +116,21 @@ class _SurahListBuilderState extends State<SurahListBuilder> {
 
                     /// Push to Quran view ([int pages] represent surah page(reversed index))
                     switch (typeView!) {
-                      case TypeView.read:
+                      case TypeView.readpdf:
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
                                 SurahViewBuilder(pages: surah[index].pages!),
+                          ),
+                        );
+                        break;
+                      case TypeView.readtext:
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SurhPage(surhNumber: surah[index].index!),
                           ),
                         );
                         break;

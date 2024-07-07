@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:quran/quran.dart' as quran;
 import 'package:quran_app/model/audio/position_data.dart';
-import 'package:quran_app/test2.dart';
+import 'package:quran_app/screens/surh_page.dart';
 import 'package:quran_app/widget/audio/control_buttons.dart';
 import 'package:quran_app/widget/audio/seek_bar.dart';
 

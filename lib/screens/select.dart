@@ -22,7 +22,35 @@ class _SelectPageState extends State<SelectPage> {
           children: [
             MaterialButton(
               onPressed: () {
-                typeView = TypeView.read;
+                typeView = TypeView.readpdf;
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Index(),
+                  ),
+                );
+              },
+              child: Container(
+                padding: EdgeInsets.all(16),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(16)),
+                child: Center(
+                  child: Text(
+                    'قراء',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            MaterialButton(
+              onPressed: () {
+                typeView = TypeView.readtext;
 
                 Navigator.push(
                   context,

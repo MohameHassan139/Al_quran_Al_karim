@@ -3,7 +3,6 @@
 // directory as this example in the GitHub repository.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/widget/audio/custom_audio.dart';
 import 'package:quran/quran.dart' as quran;
@@ -18,7 +17,8 @@ class VesreScreen extends StatefulWidget {
 class _VesreScreenState extends State<VesreScreen> {
   PageController? controller;
   int get surhNumber => int.parse(widget.surhindex);
-
+  double previousScale = 1;
+  double textScaler = 1;
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -49,18 +49,29 @@ class _VesreScreenState extends State<VesreScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 110.0),
-                  child: SingleChildScrollView(
-                    child: Center(
-                      child: Text(
-                        "${quran.getVerse(surhNumber, index + 1)} ${quran.getVerseEndSymbol(arabicNumeral: true, index + 1)}",
-                        textDirection: TextDirection.rtl,
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.amiriQuran().copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          height: 2,
+                GestureDetector(
+                  onScaleStart: (details) {
+                    previousScale = textScaler;
+                  },
+                  onScaleUpdate: (details) {
+                    setState(() {
+                      textScaler = previousScale * details.scale;
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 110.0),
+                    child: SingleChildScrollView(
+                      child: Center(
+                        child: Text(
+                          "${quran.getVerse(surhNumber, index + 1)} ${quran.getVerseEndSymbol(arabicNumeral: true, index + 1)}",
+                          textDirection: TextDirection.rtl,
+                          textAlign: TextAlign.center,
+                          textScaler: TextScaler.linear(textScaler),
+                          style: GoogleFonts.amiriQuran().copyWith(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            height: 2,
+                          ),
                         ),
                       ),
                     ),

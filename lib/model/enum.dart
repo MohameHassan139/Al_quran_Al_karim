@@ -1,5 +1,6 @@
 enum TypeView {
-  read,
+  readpdf,
+  readtext,
   lisen,
   saved,
 }

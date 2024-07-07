@@ -4,7 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:quran_app/test2.dart';
+import 'package:quran_app/screens/surh_page.dart';
 import 'package:quran_app/widget/audio/show_slider_dialog.dart';
 
 /// Displays the play/pause button and volume/speed sliders.

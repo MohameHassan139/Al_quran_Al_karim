@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/const/Globals.dart';
-import 'package:quran_app/test2.dart';
+import 'package:quran_app/screens/surh_page.dart';
 import 'Index.dart';
 import 'SplashScreen.dart';
 import 'screens/select.dart';
@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
       home: SplashScreen(),
       // home: QuranExample(),
       // home: AudioPlayerScreen(),
-      // home: VesreScreen(),
+      // home: SurhPage(),
       // home: VesreScreen(
       //   surhindex: '002',
       // ),

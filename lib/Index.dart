@@ -135,7 +135,7 @@ class _IndexState extends State<Index> {
                 }),
           ),
         ),
-        bottomNavigationBar: typeView == TypeView.read
+        bottomNavigationBar: typeView == TypeView.readpdf
             ? BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

@@ -3,10 +3,11 @@
 // directory as this example in the GitHub repository.
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quran_app/controller/audio_controller.dart';
 import 'package:quran_app/widget/audio/custom_audio.dart';
 import 'package:quran/quran.dart' as quran;
-
 class VesreScreen extends StatefulWidget {
   VesreScreen({super.key, required this.surhindex});
   String surhindex;
@@ -16,9 +17,18 @@ class VesreScreen extends StatefulWidget {
 
 class _VesreScreenState extends State<VesreScreen> {
   PageController? controller;
+  final AudioController audioController = Get.put(AudioController());
+  
+
   int get surhNumber => int.parse(widget.surhindex);
   double previousScale = 1;
   double textScaler = 1;
+
+  @override
+  void initState() {
+    audioController.setAudioUrl(quran.getAudioURLByVerse(surhNumber, 1));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -42,6 +52,11 @@ class _VesreScreenState extends State<VesreScreen> {
           child: PageView.builder(
             reverse: true,
             itemCount: quran.getVerseCount(surhNumber),
+            controller: controller,
+            onPageChanged: (int index) {
+              audioController
+                  .setAudioUrl(quran.getAudioURLByVerse(surhNumber, index + 1));
+            },
             itemBuilder: (context, index) => Stack(
               fit: StackFit.expand,
               alignment: Alignment.topCenter,
@@ -83,7 +98,7 @@ class _VesreScreenState extends State<VesreScreen> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: CustomAudio(
-                      url: quran.getAudioURLByVerse(surhNumber, index + 1),
+                      audioUrl: quran.getAudioURLByVerse(surhNumber, index + 1),
                     ),
                   ),
                 )

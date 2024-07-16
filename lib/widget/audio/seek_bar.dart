@@ -1,119 +1,98 @@
-// This is a minimal example demonstrating a play/pause button and a seek bar.
-// More advanced examples demonstrating other features can be found in the same
-// directory as this example in the GitHub repository.
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quran_app/widget/audio/hidden_thumb_component_shape.dart';
+import 'package:quran_app/controller/audio_controller.dart';
 
-import 'hidden_thumb_component_shape.dart';
+class SeekBar extends StatelessWidget {
+  final AudioController controller = Get.find();
 
-import 'hidden_thumb_component_shape.dart';
-
-class CustomSeekBar extends StatefulWidget {
-  final Duration duration;
-  final Duration position;
-  final Duration bufferedPosition;
-  final ValueChanged<Duration>? onChanged;
-  final ValueChanged<Duration>? onChangeEnd;
-
-  const CustomSeekBar({
-    Key? key,
-    required this.duration,
-    required this.position,
-    required this.bufferedPosition,
-    this.onChanged,
-    this.onChangeEnd,
-  }) : super(key: key);
-
-  @override
-  SeekBarState createState() => SeekBarState();
-}
-
-class SeekBarState extends State<CustomSeekBar> {
-  double? _dragValue;
-  late SliderThemeData _sliderThemeData;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    _sliderThemeData = SliderTheme.of(context).copyWith(
-      trackHeight: 2.0,
-    );
-  }
+  SeekBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SliderTheme(
-          data: _sliderThemeData.copyWith(
-            thumbShape: HiddenThumbComponentShape(),
-            activeTrackColor: Colors.blue.shade100,
-            inactiveTrackColor: Colors.grey.shade300,
+    return Obx(() {
+      final duration = controller.duration.value;
+      final position = controller.position.value;
+      final bufferedPosition = controller.bufferedPosition.value;
+      final value = min(position.inMilliseconds.toDouble(),
+          duration.inMilliseconds.toDouble());
+
+      return Stack(
+        children: [
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              trackHeight: 2.0,
+              thumbShape: HiddenThumbComponentShape(),
+              activeTrackColor: Colors.blue.shade100,
+              inactiveTrackColor: Colors.grey.shade300,
+            ),
+            child: ExcludeSemantics(
+              child: Slider(
+                min: 0.0,
+                max: duration.inMilliseconds.toDouble(),
+                value: min(bufferedPosition.inMilliseconds.toDouble(),
+                    duration.inMilliseconds.toDouble()),
+                onChanged: (value) {},
+              ),
+            ),
           ),
-          child: ExcludeSemantics(
+          SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              inactiveTrackColor: Colors.transparent,
+            ),
             child: Slider(
               min: 0.0,
-              max: widget.duration.inMilliseconds.toDouble(),
-              value: min(widget.bufferedPosition.inMilliseconds.toDouble(),
-                  widget.duration.inMilliseconds.toDouble()),
+              max: duration.inMilliseconds.toDouble(),
+              value: value,
               onChanged: (value) {
-                setState(() {
-                  _dragValue = value;
-                });
-                if (widget.onChanged != null) {
-                  widget.onChanged!(Duration(milliseconds: value.round()));
-                }
+                controller.seek(Duration(milliseconds: value.round()));
               },
               onChangeEnd: (value) {
-                if (widget.onChangeEnd != null) {
-                  widget.onChangeEnd!(Duration(milliseconds: value.round()));
-                }
-                _dragValue = null;
+                controller.seek(Duration(milliseconds: value.round()));
               },
             ),
           ),
-        ),
-        SliderTheme(
-          data: _sliderThemeData.copyWith(
-            inactiveTrackColor: Colors.transparent,
+          Positioned(
+            right: 16.0,
+            bottom: 0.0,
+            child: Text(
+              _remainingText(duration, position),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
           ),
-          child: Slider(
-            min: 0.0,
-            max: widget.duration.inMilliseconds.toDouble(),
-            value: min(_dragValue ?? widget.position.inMilliseconds.toDouble(),
-                widget.duration.inMilliseconds.toDouble()),
-            onChanged: (value) {
-              setState(() {
-                _dragValue = value;
-              });
-              if (widget.onChanged != null) {
-                widget.onChanged!(Duration(milliseconds: value.round()));
-              }
-            },
-            onChangeEnd: (value) {
-              if (widget.onChangeEnd != null) {
-                widget.onChangeEnd!(Duration(milliseconds: value.round()));
-              }
-              _dragValue = null;
-            },
-          ),
-        ),
-        Positioned(
-          right: 16.0,
-          bottom: 0.0,
-          child: Text(
-              RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                      .firstMatch("$_remaining")
-                      ?.group(1) ??
-                  '$_remaining',
-              style: Theme.of(context).textTheme.bodySmall),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
-  Duration get _remaining => widget.duration - widget.position;
+  String _remainingText(Duration duration, Duration position) {
+    final remaining = duration - position;
+    final minutes =
+        remaining.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds =
+        remaining.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+}
+
+class HiddenThumbComponentShape extends SliderComponentShape {
+  @override
+  Size getPreferredSize(bool isEnabled, bool isDiscrete) => Size.zero;
+
+  @override
+  void paint(
+    PaintingContext context,
+    Offset center, {
+    required Animation<double> activationAnimation,
+    required Animation<double> enableAnimation,
+    required bool isDiscrete,
+    required TextPainter labelPainter,
+    required RenderBox parentBox,
+    required SliderThemeData sliderTheme,
+    required TextDirection textDirection,
+    required double value,
+    required double textScaleFactor,
+    required Size sizeWithOverflow,
+  }) {}
 }

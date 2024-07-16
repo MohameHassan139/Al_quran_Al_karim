@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran/quran.dart' as quran;
+import 'package:quran_app/controller/audio_controller.dart';
 
 class SurhPage extends StatefulWidget {
   SurhPage({super.key, required this.surhNumber});
@@ -15,8 +17,10 @@ class SurhPage extends StatefulWidget {
 class _SurhPageState extends State<SurhPage> {
   @override
   int get surhindex => int.parse(widget.surhNumber);
+
   double textScaler = 1;
   double previousScale = 1;
+  
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -80,46 +84,3 @@ class _SurhPageState extends State<SurhPage> {
   }
 }
 
-
-
-// ListView.builder(
-//               itemCount: quran.getVerseCount(2),
-//               itemBuilder: (context, index) {
-//                 return Text(
-//                   "${quran.getVerse(2, index + 1)} ${quran.getVerseEndSymbol(arabicNumeral: true, index + 1)}",
-//                   textDirection: TextDirection.rtl,
-//                   textAlign: TextAlign.center,
-//                   softWrap: true,
-                  
-
-//                   style: GoogleFonts.amiriQuran().copyWith(
-//                     fontSize: 20,
-//                     fontWeight: FontWeight.bold,
-//                     height: 2,
-                    
-//                   ),
-//                 );
-//               }),
-
-
-// Column(
-                  
-//                   children: List.generate(
-//                     quran.getVerseCount(2),
-//                     (int index) => Text(
-//                       "${quran.getVerse(2, index + 1)} ${quran.getVerseEndSymbol(arabicNumeral: true, index + 1)}",
-//                       textDirection: TextDirection.rtl,
-//                       textAlign: TextAlign.center,
-//                       softWrap: true,
-                      
-
-//                       style: GoogleFonts.amiriQuran().copyWith(
-//                         fontSize: 20,
-//                         fontWeight: FontWeight.bold,
-//                         height: 2,
-                      
-                        
-//                       ),
-//                     ),
-//                   ),
-//                 ),

@@ -1,7 +1,12 @@
 library quran.globals;
 
+// import 'package:audio_service/audio_service.dart';
+import 'package:audio_service/audio_service.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:quran_app/model/enum.dart';
+import 'package:quran_app/test.dart';
+
+import '../widget/audio/audio_play_handler.dart';
 
 
 
@@ -36,3 +41,15 @@ Future<void> initDocument() async {
 }
 
 TypeView? typeView;
+
+// late AudioPlayerHandler audioHandler;
+// late int sdkInt;
+//
+// List<Song>? songs;
+//
+// final albumArtPaths = <int, String>{};
+//
+// /// Whether running on scoped storage (Android 10 and above),
+// /// and should use bytes to load album arts from `MediaStore`.
+// bool get useScopedStorage => sdkInt >= 29;
+late AudioHandler  audioHandler;

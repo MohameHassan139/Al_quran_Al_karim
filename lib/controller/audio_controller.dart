@@ -52,6 +52,13 @@ class AudioController extends GetxController {
   Future<void> pause() => _player.pause();
   Future<void> seek(Duration position) => _player.seek(position);
   Future<void> stop() => _player.stop();
+  Future<void> fastForward(String url) async {
+    await setAudioUrl(url);
+  }
+
+  Future<void> rewind(String url) async {
+    await setAudioUrl(url);
+  }
 
   AudioProcessingState _getProcessingState(ProcessingState state) {
     switch (state) {

@@ -42,13 +42,13 @@ class _ListenPageState extends State<ListenPage> {
       ),
       body: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           Image.asset('assets/images/logo.png'),
-          Spacer(),
+          const Spacer(),
           CustomAudio(
-            audioUrl: quran.getAudioURLBySurah(surhindex),
+            // audioUrl: quran.getAudioURLBySurah(surhindex),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );

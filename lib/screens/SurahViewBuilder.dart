@@ -1,16 +1,15 @@
-
-
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/src/foundation/change_notifier.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:quran_app/const/Globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widget/Bookmark.dart';
 import '../Index.dart';
 import 'package:quran_app/const/Globals.dart';
-
 
 class SurahViewBuilder extends StatefulWidget {
   SurahViewBuilder({Key? key, required this.pages}) : super(key: key);
@@ -95,9 +94,10 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
     setState(() {
       globals.currentPage = widget.pages;
       pageController = _pageControllerBuilder();
+
       pageController.initialPage = widget.pages + 1;
+
       // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-     
     });
   }
 
@@ -112,11 +112,16 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SafeArea(
-             
+              
+
               child: PdfView(
-              
-              
                 controller: pageController,
+                renderer: (PdfPage page) => page.render(
+                  width: width * 1.2,
+                  height: height * 1.1,
+                  format: PdfPageImageFormat.jpeg,
+                  backgroundColor: '#FFFFFF',
+                ),
                 scrollDirection: Axis.horizontal,
                 onDocumentLoaded: (document) {
                   setState(() {
@@ -133,6 +138,7 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
                   });
                 },
               ),
+              
             );
           } else if (snapshot.hasError) {
             print(snapshot.error.toString());
@@ -169,8 +175,6 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
       ),
     );
   }
-
-  
 
   Future<bool> hasSupport() async {
     // Always assume support for emulators

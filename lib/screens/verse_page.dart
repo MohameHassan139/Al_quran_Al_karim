@@ -40,6 +40,21 @@ class _VesreScreenState extends State<VesreScreen> {
             height: 2,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: audioController.decreaseCountReplay,
+            icon: const Icon(Icons.exposure_minus_1),
+          ),
+          GetBuilder<AudioController>(
+            builder: (controller) {
+              return Text('${audioController.countReplay}');
+            },
+          ),
+          IconButton(
+            onPressed: audioController.increaseCountReplay,
+            icon: const Icon(Icons.plus_one),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -76,10 +91,11 @@ class _VesreScreenState extends State<VesreScreen> {
                               textAlign: TextAlign.center,
                               textScaler: TextScaler.linear(
                                   verseController.textScaler.value),
-                              style: GoogleFonts.amiriQuran().copyWith(
+                              style: GoogleFonts.amiri().copyWith(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 height: 2,
+                                wordSpacing: 1.1,
                               ),
                             )),
                       ),

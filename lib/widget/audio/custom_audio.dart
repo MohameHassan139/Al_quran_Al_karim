@@ -24,11 +24,13 @@ class CustomAudio extends StatelessWidget {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+               
                 _button(Icons.fast_rewind, () {
                   verseController.next();
-                }
-                    // controller.fastForward('') as VoidCallback
-                    ),
+                }),
+                _button(Icons.replay, () {
+                  controller.replay();
+                }),
                 if (isPlaying)
                   _button(Icons.pause, controller.pause)
                 else
@@ -54,7 +56,7 @@ class CustomAudio extends StatelessWidget {
 
   IconButton _button(IconData iconData, VoidCallback? onPressed) => IconButton(
         icon: Icon(iconData),
-        iconSize: 64.0,
+        iconSize: 50.0,
         onPressed: onPressed,
       );
 }

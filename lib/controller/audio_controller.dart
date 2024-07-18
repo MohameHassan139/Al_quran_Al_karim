@@ -11,7 +11,7 @@ class AudioController extends GetxController {
   final bufferedPosition = Duration.zero.obs;
   final duration = Duration.zero.obs;
   final processingState = AudioProcessingState.idle.obs;
-
+  int countReplay = 1;
   AudioController() {
     _player.playbackEventStream.listen((event) {
       position.value = _player.position;
@@ -48,13 +48,30 @@ class AudioController extends GetxController {
     update();
   }
 
+  void increaseCountReplay() {
+    countReplay++;
+    update();
+  }
+
+  void decreaseCountReplay() {
+    if (countReplay > 1) {
+      countReplay--;
+      update();
+    }
+  }
+
   Future<void> play() => _player.play();
+  Future<void> replay() async {
+    for (var i = 0; i < countReplay; i++) {
+      await _player.seek(Duration.zero);
+      await Future.delayed(_player.duration ?? Duration.zero);
+    }
+    //  _player.seek(Duration.zero);
+  }
+
   Future<void> pause() => _player.pause();
   Future<void> seek(Duration position) => _player.seek(position);
   Future<void> stop() => _player.stop();
-  Future<void> fastForward(String url) async {
-    await setAudioUrl(url);
-  }
 
   Future<void> rewind(String url) async {
     await setAudioUrl(url);

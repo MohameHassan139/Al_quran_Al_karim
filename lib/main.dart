@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quran_app/const/Globals.dart';
 import 'package:quran_app/widget/audio/audio_play_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:quran_app/test2.dart';
 // import 'package:quran_app/test.dart';
 // import 'package:quran_app/widget/audio/audio_play_handler.dart';
@@ -32,6 +33,7 @@ Future<void> main() async {
         androidStopForegroundOnPause: true,
         androidShowNotificationBadge: true,
       ));
+  prefs = await SharedPreferences.getInstance();
   runApp(MyApp());
 }
 
@@ -54,6 +56,7 @@ class _MyAppState extends State<MyApp> {
         'select': (context) => SelectPage(),
       },
       debugShowCheckedModeBanner: false,
+      title: "Qur'n",
 
       theme: ThemeData(
         primarySwatch: Colors.green,

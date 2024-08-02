@@ -4,6 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/controller/audio_controller.dart';
 import 'package:quran_app/controller/verse_controller.dart';
 import 'package:quran_app/widget/audio/custom_audio.dart';
+import 'package:quran_app/widget/custom_textformfield.dart';
+
+import '../widget/custom_dialog.dart';
 
 class VesreScreen extends StatefulWidget {
   VesreScreen({super.key, required this.surhindex});
@@ -54,6 +57,12 @@ class _VesreScreenState extends State<VesreScreen> {
             onPressed: audioController.increaseCountReplay,
             icon: const Icon(Icons.plus_one),
           ),
+          IconButton(
+            onPressed: () {
+              Get.dialog(CustomDialog());
+            },
+            icon: const Icon(Icons.skip_next),
+          )
         ],
       ),
       body: SafeArea(

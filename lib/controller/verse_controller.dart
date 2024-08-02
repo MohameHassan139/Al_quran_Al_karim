@@ -3,11 +3,10 @@ import 'package:get/get.dart';
 import 'package:quran/quran.dart' as quran;
 
 class VerseController extends GetxController {
-  VerseController();
   String? surahIndex;
   PageController pageController = PageController();
   int get surahNumber => int.parse(surahIndex ?? 1.toString());
-
+  TextEditingController versIndexController = TextEditingController();
   RxInt currentVerseIndex = 0.obs;
   RxDouble textScaler = 1.0.obs;
 
@@ -23,6 +22,17 @@ class VerseController extends GetxController {
     pageController.previousPage(
         duration: const Duration(milliseconds: 200), curve: Curves.easeInOut);
     update();
+  }
+
+  void goToVers() {
+    int index = int.parse(versIndexController.text);
+    if (versIndexController.text.isNotEmpty &&
+        index > 0 &&
+        index < quran.getVerseCount(surahNumber)) {
+      pageController.jumpToPage(int.parse(versIndexController.text));
+      versIndexController.clear();
+      update();
+    }
   }
 
   void setCurrentVerse(int index) {

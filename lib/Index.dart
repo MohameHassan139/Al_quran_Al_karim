@@ -84,12 +84,7 @@ class _IndexState extends State<Index> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        primaryColor: Colors.green,
-      ),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           /*leading: IconButton(
             icon: Icon(
@@ -106,8 +101,8 @@ class _IndexState extends State<Index> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                  padding: const EdgeInsets.all(8.0), child: Text('الفهرس')),
-              Icon(
+                  padding: const EdgeInsets.all(8.0), child: const Text('الفهرس')),
+              const Icon(
                 Icons.format_list_numbered_rtl,
                 color: Colors.white,
               ),
@@ -157,7 +152,7 @@ class _IndexState extends State<Index> {
           onTap: (index) => _onItemTapped(index),
               )
             : null,
-      ),
+      
     );
   }
 

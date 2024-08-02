@@ -4,24 +4,21 @@ library quran.globals;
 import 'package:audio_service/audio_service.dart';
 import 'package:pdfx/pdfx.dart';
 import 'package:quran_app/model/enum.dart';
-import 'package:quran_app/test.dart';
-
-import '../widget/audio/audio_play_handler.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 /// -------------- @Global values
 /// changes when onChanged Callback
-int currentPage =0;
+int currentPage = 0;
 
 /// contains bookmarkedPage
-int bookmarkedPage =0;
+int bookmarkedPage = 0;
 
 /// refer to last viewed page (stored in sharedPreferences)
-int lastViewedPage =0;
+int lastViewedPage = 0;
 
 /// Default Screen Brightness level [Default value = 0.5] (medium)
-double brightnessLevel =0;
+double brightnessLevel = 0;
 
 /// -------------- @Defaults values
 /// if bookmarkedPage not defined
@@ -52,4 +49,6 @@ TypeView? typeView;
 // /// Whether running on scoped storage (Android 10 and above),
 // /// and should use bytes to load album arts from `MediaStore`.
 // bool get useScopedStorage => sdkInt >= 29;
-late AudioHandler  audioHandler;
+late AudioHandler audioHandler;
+
+late SharedPreferences prefs;

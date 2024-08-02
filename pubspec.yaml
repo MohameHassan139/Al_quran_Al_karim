@@ -11,10 +11,10 @@ dependencies:
   cupertino_icons: null
   flutter:
     sdk: flutter
-  get: ^4.6.6
   flutter_screenutil: ^5.9.3
   flutter_test:
     sdk: flutter
+  get: ^4.6.6
   google_fonts: ^6.2.1
   just_audio: ^0.9.38
   pdfx: ^2.6.0

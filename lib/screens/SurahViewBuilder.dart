@@ -26,7 +26,6 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
   bool isBookmarked = false;
   Widget _bookmarkWidget = Container();
   int _selectedIndex = 0;
-  late SharedPreferences prefs;
 
   Future<PdfDocument>? _getDocument() async {
     if (document != null) {
@@ -52,22 +51,29 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
         if (globals.bookmarkedPage == null) {
           globals.bookmarkedPage = globals.DEFAULT_BOOKMARKED_PAGE;
         }
+   
       });
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) =>
-                  SurahViewBuilder(pages: globals.bookmarkedPage - 1)),
-          (Route<dynamic> route) => false);
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+            builder: (context) =>
+                SurahViewBuilder(pages: globals.bookmarkedPage - 1)),
+      );
+      setState(() {
+        checkBookMark();
+      });
     } else if (index == 1) {
       setState(() {
         globals.bookmarkedPage = globals.currentPage;
+        checkBookMark();
+
         print("toSave: ${globals.bookmarkedPage}");
       });
       if (globals.bookmarkedPage != null) {
-        setBookmark(globals.bookmarkedPage + 1);
+        setBookmark(globals.bookmarkedPage);
       }
     } else if (index == 2) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Index()));
+    
     }
   }
 
@@ -78,32 +84,37 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
   }
 
   void setBookmark(int page) async {
-    prefs = await SharedPreferences.getInstance();
     await prefs.setInt(globals.BOOKMARKED_PAGE, page);
+    
+    
   }
 
   void setLastViewedPage(int currentPage) async {
-    prefs = await SharedPreferences.getInstance();
     await prefs.setInt(globals.LAST_VIEWED_PAGE, currentPage);
     globals.lastViewedPage = prefs.getInt(globals.LAST_VIEWED_PAGE)!;
+    checkBookMark();
+  }
+
+  void checkBookMark() {
+    isBookmarked =
+        globals.currentPage == prefs.getInt(globals.BOOKMARKED_PAGE) ||
+            globals.currentPage == globals.bookmarkedPage;
   }
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      globals.currentPage = widget.pages;
+    
+    globals.currentPage = widget.pages + 1;
       pageController = _pageControllerBuilder();
 
       pageController.initialPage = widget.pages + 1;
 
-      // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    });
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    // pageController = _pageControllerBuilder();
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -112,44 +123,52 @@ class _SurahViewBuilderState extends State<SurahViewBuilder> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SafeArea(
-              
-
-              child: PdfView(
-                controller: pageController,
-                renderer: (PdfPage page) => page.render(
-                  width: width * 1.2,
-                  height: height * 1.1,
-                  format: PdfPageImageFormat.jpeg,
-                  backgroundColor: '#FFFFFF',
-                ),
-                scrollDirection: Axis.horizontal,
-                onDocumentLoaded: (document) {
-                  setState(() {
-                    document = document;
-                  });
-                },
-                onPageChanged: (page) {
-                  setState(() {
-                    currentPage = page;
-                    globals.currentPage = currentPage;
-                    setLastViewedPage(currentPage);
-                    isBookmarked = currentPage == globals.bookmarkedPage;
-                    _bookmarkWidget = isBookmarked ? Bookmark() : Container();
-                  });
-                },
+              child: Stack(
+                children: [
+                  PdfView(
+                    controller: pageController,
+                    renderer: (PdfPage page) => page.render(
+                      width: width * 1.2,
+                      height: height * 1.1,
+                      format: PdfPageImageFormat.jpeg,
+                      backgroundColor: '#FFFFFF',
+                    ),
+                    scrollDirection: Axis.horizontal,
+                    onDocumentLoaded: (document) {
+                      setState(() {
+                        document = document;
+                      });
+                    },
+                    onPageChanged: (page) {
+                      setState(() {
+                        currentPage = page;
+                        globals.currentPage = currentPage;
+                        setLastViewedPage(currentPage);
+                        checkBookMark();
+                      });
+                    },
+                  ),
+                  Visibility(
+                    visible: isBookmarked,
+                    child: Positioned(
+                      height: 0,
+                      left: 0,
+                      child: Bookmark(),
+                    ),
+                  ),
+                ],
               ),
-              
             );
           } else if (snapshot.hasError) {
             print(snapshot.error.toString());
-            return Center(
+            return const Center(
               child: Text(
                 'المعذرة لا يمكن طباعة المحتوى'
                 'يرجي التحقق من أن جهازك يدعم نظام أندرويد بنسخته 5 على الأقل',
               ),
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

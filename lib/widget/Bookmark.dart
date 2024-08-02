@@ -15,11 +15,11 @@ class _BookmarkState extends State<Bookmark> {
         child: Align(
           alignment: Alignment.topLeft,
           child: Opacity(
-            opacity: 0.8,
+            opacity: 0.5,
             child: Icon(
               Icons.bookmark,
               color: Colors.red[800],
-              size: 40.0,
+              size: 80.0,
             ),
           ),
         ),

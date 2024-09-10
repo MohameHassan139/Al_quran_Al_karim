@@ -18,15 +18,16 @@ class ListenPage extends StatefulWidget {
 
 class _ListenPageState extends State<ListenPage> {
   int get surhindex => int.parse(widget.surhNumber);
-  final AudioController audioController = Get.put(AudioController());
-  final ListenController listenController = Get.put(ListenController());
+
   @override
   void initState() {
-    audioController.setAudioUrl(quran.getAudioURLBySurah(surhindex));
     listenController.index = surhindex;
+
+    audioController.setAudioUrl(quran.getAudioURLBySurah(surhindex));
     super.initState();
   }
-
+  final AudioController audioController = Get.put(AudioController());
+  final ListenController listenController = Get.put(ListenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

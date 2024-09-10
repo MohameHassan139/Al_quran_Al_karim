@@ -66,7 +66,7 @@ class _SelectPageState extends State<SelectPage> {
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(16)),
                 child: const Center(
-                  child: const Text(
+                  child: Text(
                     'قراء',
                     style: TextStyle(color: Colors.white),
                   ),

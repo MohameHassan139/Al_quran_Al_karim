@@ -8,7 +8,7 @@ class ListenController extends GetxController {
 
   @override
   void onInit() {
-    audioController.setAudioUrl(quran.getAudioURLBySurah(index));
+    // audioController.setAudioUrl(quran.getAudioURLBySurah(index));
 
     super.onInit();
   }

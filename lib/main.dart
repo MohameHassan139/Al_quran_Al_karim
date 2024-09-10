@@ -1,10 +1,11 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/const/Globals.dart';
 import 'package:quran_app/widget/audio/audio_play_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:quran_app/test2.dart';
+import 'package:quran_app/test.dart';
 // import 'package:quran_app/test.dart';
 // import 'package:quran_app/widget/audio/audio_play_handler.dart';
 import 'Index.dart';
@@ -61,13 +62,14 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.green,
         primaryColor: Colors.green,
+        textTheme: GoogleFonts.amiriTextTheme(),
       ),
       home: SplashScreen(),
       // home: MainScreen(
       //   audioUrl: quran.getAudioURLBySurah(3),
       // ),
       // home: AudioPlayerScreen(),
-      // home: Test(),
+      // home: TestScreen(),
       // home: VesreScreen(
       //   surhindex: '002',
       // ),

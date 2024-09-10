@@ -1,7 +1,7 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:rxdart/rxdart.dart';
+
 
 class AudioController extends GetxController {
   final AudioPlayer _player = AudioPlayer();

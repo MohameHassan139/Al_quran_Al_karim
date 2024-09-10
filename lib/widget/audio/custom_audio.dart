@@ -6,7 +6,6 @@ import 'package:quran_app/controller/audio_controller.dart';
 import 'package:quran_app/controller/verse_controller.dart';
 import 'package:quran_app/model/enum.dart';
 import 'package:quran_app/widget/audio/seek_bar.dart';
-
 import '../../controller/listen_controller.dart';
 
 class CustomAudio extends StatelessWidget {

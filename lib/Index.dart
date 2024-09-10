@@ -39,7 +39,7 @@ class _IndexState extends State<Index> {
       });
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) {
-        return SurahViewBuilder(pages: globals.bookmarkedPage - 1);
+        return SurahViewBuilder(pages: globals.bookmarkedPage);
       }), (Route<dynamic> route) => false);
 
       /// Continue reading

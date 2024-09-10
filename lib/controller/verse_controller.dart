@@ -17,11 +17,13 @@ class VerseController extends GetxController {
 
   final AudioController audioController = Get.put(AudioController());
 
+  // llll
+
   @override
   void onInit() {
     // audioController.setAudioUrl(quran.getAudioURLByVerse(1, 1));
     // TODO: implement onInit
-    
+
     super.onInit();
   }
 

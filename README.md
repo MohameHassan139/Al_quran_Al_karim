@@ -49,20 +49,30 @@ Built with ❤️ using **Flutter**, and designed for a smooth and spiritual use
 
 ## 🖼️ Screenshots
 
-### 📑 Index Page  
+## 💡 Previews 
+<img src="https://github.com/MohameHassan139/Al_quran_Al_karim/blob/main/screenshots/5.jpg?raw=true" />
+
+## 🎵 Audio Features 
+
+<img src="https://github.com/MohameHassan139/Al_quran_Al_karim/blob/main/screenshots/7.jpg?raw=true" />
+
+## 📑 Index Page  
+
 <img src="https://github.com/HoussemTN/Al-quran-Al-karim/blob/master/screenshots/index.jpeg?raw=true" width="300px"/>
 
-### 📖 Surah View  
+## 📖 Surah View  
+
 <img src="https://github.com/HoussemTN/Al-quran-Al-karim/blob/master/screenshots/surahView.jpeg?raw=true" width="300px"/>
 
-### 🔖 Bookmarked Surahs  
+## 🔖 Bookmarked Surahs  
+
 <img src="https://github.com/HoussemTN/Al-quran-Al-karim/blob/master/screenshots/bookmark.jpeg?raw=true" width="300px"/>
 
-### 🔍 Search Surah  
+## 🔍 Search Surah 
+
 <img src="https://github.com/HoussemTN/Al-quran-Al-karim/blob/master/screenshots/searchSurah.jpeg?raw=true" width="300px"/>
 
-### 💡 Control Screen Light  
-<img src="https://github.com/HoussemTN/Al-quran-Al-karim/blob/master/screenshots/controlLight.jpeg?raw=true" width="300px"/>
+
 
 ---
 
